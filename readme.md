@@ -1,5 +1,12 @@
 # Piklist
 
+> [!NOTE]
+> **This is a fork.** The original [piklist/piklist](https://github.com/piklist/piklist) repository has been archived and the plugin is no longer maintained by its original authors. This fork is kept running solely for compatibility purposes, to keep existing sites that depend on Piklist working. No new features are planned.
+
+---
+
+## Original announcement from the Piklist team
+
 On June 12, 2012, at WordCampNYC, we announced Piklist. Developers were awed by its power, and beginners were amazed by how simple it was to use.
 
 Over the next nine years, we released 92 versions, making it more stable and secure, but we never had time to take it to the next level.
