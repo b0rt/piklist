@@ -1,0 +1,45 @@
+name: Create GitHub Release
+
+# Every push to main reads the Version header from piklist.php and publishes
+# a matching GitHub release (tag v<version>) if it does not exist yet. The
+# plugin's GitHub updater serves that release to WordPress installations.
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Tag and release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Read plugin version
+        id: version
+        run: |
+          version="$(grep -m1 -oP '^Version:\s*\K\S+' piklist.php)"
+          if [ -z "$version" ]; then
+            echo "Could not read the Version header from piklist.php" >&2
+            exit 1
+          fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Create release if it does not exist
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag="v${{ steps.version.outputs.version }}"
+          if gh release view "$tag" --repo "$GITHUB_REPOSITORY" > /dev/null 2>&1; then
+            echo "Release $tag already exists, nothing to do."
+            exit 0
+          fi
+          gh release create "$tag" \
+            --repo "$GITHUB_REPOSITORY" \
+            --target "$GITHUB_SHA" \
+            --title "Piklist $tag" \
+            --generate-notes
