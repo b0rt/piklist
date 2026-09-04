@@ -2286,7 +2286,7 @@ class Piklist_Form
    * @static
    * @since 1.0
    */
-  public static function update_fields_data($fields_data, $field, $field_name = null, $attribute, $value, $merge = false)
+  public static function update_fields_data($fields_data, $field, $field_name, $attribute, $value, $merge = false)
   {
     if ((!$field['scope'] && isset($fields_data[0])) || ($field['scope'] && array_key_exists($field['scope'], $fields_data)))
     {
@@ -2567,7 +2567,7 @@ class Piklist_Form
    * @static
    * @since 1.0
    */
-  public static function template_shortcode($attributes, $content = '', $tag)
+  public static function template_shortcode($attributes, $content, $tag)
   {
     extract(shortcode_atts(array(
       'label_tag' => true

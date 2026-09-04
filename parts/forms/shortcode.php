@@ -13,7 +13,7 @@ Message: Shortcode Updated.
   
   $name = isset($shortcode_data['name']) ? $shortcode_data['name'] : false;
   $action = isset($shortcode_data['action']) ? $shortcode_data['action'] : false;
-  $index = empty($shortcode_data) ? -1 : array_key_exists('index', $shortcode_data) ? $shortcode_data['index'] : -1;
+  $index = empty($shortcode_data) ? -1 : (array_key_exists('index', $shortcode_data) ? $shortcode_data['index'] : -1);
   
   if (in_array($action, array('insert', 'update'))):
     

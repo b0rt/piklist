@@ -758,7 +758,7 @@ class Piklist_Workflow
    * @static
    * @since 1.0
    */
-  public static function shortcode($attributes, $content = '', $tag)
+  public static function shortcode($attributes, $content, $tag)
   {
     extract(shortcode_atts(array(
       'flow' => null

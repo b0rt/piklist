@@ -1025,7 +1025,7 @@ class Piklist
    * @static
    * @since 1.0
    */
-  public static function get_file_data($file = null, $data)
+  public static function get_file_data($file, $data)
   {
     if (!is_null($file))
     {
@@ -1979,15 +1979,15 @@ class Piklist
       else
       {
         // Check if contents need to be wrapped in CDATA
-        preg_match_all('/\&#x\d+\;/', htmlentities($value), $matches);
+        preg_match_all('/\&#x\d+\;/', htmlentities($value, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401), $matches);
 
-        if (count($matches[0]) > 0 || stristr(htmlentities($value), '&'))
+        if (count($matches[0]) > 0 || stristr(htmlentities($value, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401), '&'))
         {
           $child = is_int($key) ? $xml->addChild($child_name) : $xml->addChild($key);
 
           $dom = dom_import_simplexml($child);
           $document = $dom->ownerDocument;
-          $dom->appendChild($document->createCDATASection(html_entity_decode($value)));
+          $dom->appendChild($document->createCDATASection(html_entity_decode($value, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401)));
         }
         else
         {
