@@ -6,9 +6,9 @@ if (!defined('ABSPATH')) exit; // Exit if accessed directly
  * Piklist_GitHub_Updater
  * Serves plugin updates directly from the GitHub repository instead of WordPress.org.
  *
- * Uses the latest published GitHub release when one exists, otherwise falls
- * back to the plugin version header on the default branch, so bumping the
- * Version header in piklist.php is enough to offer an update.
+ * Only published GitHub releases are offered as updates; the release tag
+ * (e.g. v1.0.13) determines the version and the release zipball is the
+ * update package.
  *
  * @package     Piklist
  * @subpackage  GitHub_Updater
@@ -22,12 +22,6 @@ class Piklist_GitHub_Updater
    * @access public
    */
   public static $repository = 'b0rt/piklist';
-
-  /**
-   * @var string The branch used when the repository has no published release.
-   * @access public
-   */
-  public static $branch = 'develop';
 
   /**
    * @var string Site transient key used to cache the latest version lookup.
@@ -258,8 +252,7 @@ class Piklist_GitHub_Updater
 
   /**
    * fetch_latest
-   * Looks up the latest version on GitHub; prefers the latest published
-   * release and falls back to the plugin header on the default branch.
+   * Looks up the latest published (non-draft, non-prerelease) release on GitHub.
    *
    * @return array|false Array with version, package and notes, or false.
    *
@@ -286,24 +279,6 @@ class Piklist_GitHub_Updater
           'version' => ltrim($release['tag_name'], 'vV')
           ,'package' => 'https://api.github.com/repos/' . self::$repository . '/zipball/' . rawurlencode($release['tag_name'])
           ,'notes' => isset($release['body']) ? $release['body'] : ''
-        );
-      }
-    }
-
-    $response = wp_remote_get('https://raw.githubusercontent.com/' . self::$repository . '/' . self::$branch . '/piklist.php', array(
-      'timeout' => 10
-    ));
-
-    if (!is_wp_error($response) && wp_remote_retrieve_response_code($response) == 200)
-    {
-      preg_match('/^[ \t\/*#@]*Version:\s*(\S+)/mi', wp_remote_retrieve_body($response), $matches);
-
-      if (!empty($matches[1]))
-      {
-        return array(
-          'version' => $matches[1]
-          ,'package' => 'https://api.github.com/repos/' . self::$repository . '/zipball/' . self::$branch
-          ,'notes' => ''
         );
       }
     }
