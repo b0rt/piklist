@@ -24,10 +24,10 @@ class Piklist_GitHub_Updater
   public static $repository = 'b0rt/piklist';
 
   /**
-   * @var string The branch used when the repository has no published release.
+   * @var string The stable branch used when the repository has no published release.
    * @access public
    */
-  public static $branch = 'develop';
+  public static $branch = 'main';
 
   /**
    * @var string Site transient key used to cache the latest version lookup.
