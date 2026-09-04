@@ -1025,7 +1025,7 @@ class Piklist
    * @static
    * @since 1.0
    */
-  public static function get_file_data($file = null, $data)
+  public static function get_file_data($file, $data)
   {
     if (!is_null($file))
     {

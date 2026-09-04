@@ -256,7 +256,7 @@ class Piklist_Taxonomy
    * @static
    * @since 1.0
    */
-  public static function meta_box_edit($term = null, $taxonomy)
+  public static function meta_box_edit($term, $taxonomy)
   {
     self::meta_box($taxonomy);
   }

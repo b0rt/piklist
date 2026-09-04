@@ -234,7 +234,7 @@ class Piklist_Shortcode
    * @static
    * @since 1.0
    */
-  public static function shortcode($attributes, $content = '', $tag)
+  public static function shortcode($attributes, $content, $tag)
   {
     if (self::$shortcodes[$tag])
     {

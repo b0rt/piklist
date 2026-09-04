@@ -83,7 +83,21 @@ class Piklist_List_Table_Template extends WP_List_Table
   var $columns = array();
 
   var $sortable_columns = array();
-  
+
+  var $per_page = 10;
+
+  var $ajax = false;
+
+  var $export = false;
+
+  var $current_page = 1;
+
+  var $total_items = 0;
+
+  var $arguments = array();
+
+  var $_pagination;
+
   function __construct($arguments)
   {
     global $wpdb;

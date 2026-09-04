@@ -1227,7 +1227,7 @@ class Piklist_Validate
    * @static
    * @since 1.0
    */
-  public static function validate_limit($index, $value, $options = null, $field, $fields)
+  public static function validate_limit($index, $value, $options, $field, $fields)
   {
     $options = wp_parse_args($options, array(
       'min' => 1
@@ -1293,7 +1293,7 @@ class Piklist_Validate
    * @static
    * @since 1.0
    */
-  public static function validate_range($index, $value, $options = null, $field, $fields)
+  public static function validate_range($index, $value, $options, $field, $fields)
   {
     extract($options);
 
